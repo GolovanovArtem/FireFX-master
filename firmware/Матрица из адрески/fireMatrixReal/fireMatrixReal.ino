@@ -1,4 +1,3 @@
-// настройки ленты
 #define M_WIDTH 10      // ширина матрицы
 #define M_HEIGHT 10     // высота матрицы
 #define LED_PIN 4       // пин ленты
@@ -9,7 +8,7 @@
 #define HUE_GAP 60      // заброс по hue
 #define FIRE_STEP 15    // шаг изменения "языков" пламени
 #define HUE_START 0     // начальный цвет огня (0 красный, 80 зелёный, 140 молния, 190 розовый)
-#define HUE_COEF 0.7    // коэффициент цвета огня (чем больше - тем дальше заброс по цвету)
+#define HUE_COEF 0.2    // коэффициент цвета огня (чем больше - тем дальше заброс по цвету)
 #define SMOOTH_K 30   // коэффициент плавности огня
 #define MIN_BRIGHT 50   // мин. яркость огня
 #define MAX_BRIGHT 255  // макс. яркость огня
@@ -137,7 +136,7 @@ void drawFrame(int pcnt) {
           - pgm_read_byte(&(valueMask[y][newX]));
 
         LEDdata color = mHSV(
-                          HUE_START + pgm_read_byte(&(hueMask[y][newX])), // H
+                          random(1, 3), // H
                           255, // S
                           (uint8_t)max(0, nextv) // V
                         );
@@ -161,7 +160,7 @@ void drawFrame(int pcnt) {
     uint8_t newX = x;
     if (x > 15) newX = x % 16;
     LEDdata color = mHSV(
-                      HUE_START + pgm_read_byte(&(hueMask[0][newX])), // H
+                      5, // H
                       255,           // S
                       (uint8_t)(((100.0 - pcnt) * matrixValue[0][newX] + pcnt * line[newX]) / 100.0) // V
                     );
